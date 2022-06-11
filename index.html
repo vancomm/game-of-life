@@ -1,36 +1,12 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Game of Life</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game of Life</title>
 </head>
-
 <body>
-    <div class="buttons">
-        <button id="run"><u>S</u>tart</button>
-        <button id="next"><u>N</u>ext gen</button>
-        <button id="clear"><u>C</u>lear</button>
-        <!-- <div class="range" style="--step:25; --min:0; --max:250"> -->
-        <input id="delay" name="delay" type="range" min="0" max="250" step="25" value="50" list="steplist"></input>
-        <label for="delay">Delay: 50ms</label>
-        <datalist id="steplist">
-            <option>0</option>
-            <option>25</option>
-            <option>50</option>
-            <option>75</option>
-            <option>100</option>
-            <option>125</option>
-            <option>150</option>
-            <option>175</option>
-            <option>200</option>
-            <option>225</option>
-            <option>250</option>
-        </datalist>
-        <!-- </div> -->
-        <div class="stats"></div>
-    </div>
-    <table id="field"></table>
+  <div id="root"></div>
 </body>
-
 </html>

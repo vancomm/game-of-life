@@ -1,4 +1,4 @@
-export function range(first, second, step = 1) {
+export default function range(first, second, step = 1) {
   if (!second) {
     const stop = first;
     return [...Array(stop).keys()];
