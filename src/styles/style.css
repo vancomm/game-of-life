@@ -1,26 +1,17 @@
-:root {
-	--size: 20px;
-}
-
 body {
 	font-family: sans-serif;
 }
 
-table {
-	margin-top: 45px;
-	border-collapse: collapse;
-	margin-bottom: 10px;
-}
+/* button::first-letter {
+  text-decoration: underline;
+} */
 
 .buttons {
+	padding-bottom: 10px;
 	display: flex;
 	column-gap: 5px;
 	align-items: center;
 	width: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	padding: 10px;
 	background-color: rgba(255, 255, 255, 0.7);
 }
 
@@ -32,13 +23,12 @@ table {
 
 .field {
   display: grid;
-  grid-template-columns: repeat();
-  grid-template-columns: repeat(var(--num-cols), 20px);
+  grid-template-columns: repeat(var(--num-cols), var(--cell-size));
 }
 
 .cell {
-	width: var(--size);
-	height: var(--size);
+	width: var(--cell-size);
+	height: var(--cell-size);
 	border: 1px solid gray;
 	color: black;
 	font: normal 0.7em sans-serif;
@@ -50,10 +40,10 @@ table {
 	color: white;
 }
 
-table:not(.running) .cell:hover {
+.field:not(.running) .cell:hover {
 	background-color: rgb(141, 196, 248);
 }
 
-table:not(.running) .cell.alive:hover {
+.field:not(.running) .cell.alive:hover {
 	background-color: rgb(197, 0, 0);
 }
