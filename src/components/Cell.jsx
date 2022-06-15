@@ -1,29 +1,19 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import cn from 'classnames';
-import { actions as fieldActions } from '../slices/fieldSlice.js';
 
-export default function Cell({ i, j, status }) {
-  const dispatch = useDispatch();
-
-  const handleClick = (ii, jj) => () => {
-    dispatch(fieldActions.toggleCell({ i: ii, j: jj }));
-  };
-
+export default function Cell({ alive, onClick }) {
   return (
-    <td
-      id={`td-${i}-${j}`}
-      className={cn('cell', status)}
-      onClick={handleClick(i, j)}
+    <div
+      className={cn('cell', (alive ? 'alive' : 'dead'))}
+      onClick={onClick}
     />
   );
 }
 
 Cell.propTypes = {
-  i: PropTypes.string.isRequired,
-  j: PropTypes.string.isRequired,
-  status: PropTypes.oneOf(['dead', 'alive']).isRequired,
+  alive: PropTypes.oneOf([0, 1]).isRequired,
+  onClick: PropTypes.func.isRequired,
 };

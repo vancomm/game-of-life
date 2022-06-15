@@ -1,34 +1,40 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/no-array-index-key */
+import React, { useState } from 'react';
+import produce from 'immer';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { actions as fieldActions } from '../slices/fieldSlice';
 import Cell from './Cell.jsx';
 
-export default function Field({ size }) {
-  const dispatch = useDispatch();
+export default function Field({ rows, cols }) {
+  const [field, setField] = useState(() => Array(rows).fill(Array(cols).fill(0)));
 
-  const field = useSelector((state) => state.field.value);
-
-  useEffect(() => {
-    dispatch(fieldActions.setField(size));
-  }, []);
+  const toggleCell = (i, j) => () => {
+    const newField = produce(field, (fieldCopy) => {
+      fieldCopy[i][j] = fieldCopy[i][j] === 0 ? 1 : 0;
+    });
+    setField(newField);
+  };
 
   return (
-    <table>
-      <thead />
-      <tbody>
-        {Object.entries(field).map(([i, row]) => (
-          <tr key={`tw-${i}`}>
-            {Object.entries(row).map(([j, value]) => (
-              <Cell key={`cell-${i}-${j}`} i={i} j={j} status={value} />
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div
+      className="field"
+      style={{
+        '--num-rows': rows,
+        '--num-cols': cols,
+      }}
+    >
+      {field.map((row, i) => row.map((value, j) => (
+        <Cell
+          key={`cell-${i}-${j}`}
+          alive={value}
+          onClick={toggleCell(i, j)}
+        />
+      )))}
+    </div>
   );
 }
 
 Field.propTypes = {
-  size: PropTypes.number.isRequired,
+  rows: PropTypes.number.isRequired,
+  cols: PropTypes.number.isRequired,
 };
