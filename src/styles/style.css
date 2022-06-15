@@ -45,5 +45,5 @@ body {
 }
 
 .field:not(.running) .cell.alive:hover {
-	background-color: rgb(197, 0, 0);
+	background-color: rgb(129, 0, 0);
 }

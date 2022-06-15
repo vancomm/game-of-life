@@ -38,10 +38,10 @@ const getRandomField = () => Array.from(
 export default function App() {
   const [running, setRunning] = useState(false);
 
-  const [field, setField] = useState(getEmptyField);
-
   const runningRef = useRef();
   runningRef.current = running;
+
+  const [field, setField] = useState(getEmptyField);
 
   const runSimulation = useCallback(() => {
     if (!runningRef.current) return;
@@ -89,6 +89,7 @@ export default function App() {
   };
 
   const toggleCell = (i, j) => () => {
+    if (runningRef.current) return;
     setField((f) => produce(f, (fieldCopy) => {
       fieldCopy[i][j] = fieldCopy[i][j] === 0 ? 1 : 0;
     }));
