@@ -8,6 +8,7 @@ export default function Slider({ value, setValue }) {
         htmlFor="delay"
         style={{
           fontFamily: 'monospace',
+          color: 'white',
           fontSize: '14px',
           display: 'flex',
           width: '100px',
@@ -27,6 +28,9 @@ export default function Slider({ value, setValue }) {
           step="25"
           value={value}
           list="steplist"
+          style={{
+            color: 'white',
+          }}
           onChange={(e) => setValue(e.target.value)}
         />
       </label>

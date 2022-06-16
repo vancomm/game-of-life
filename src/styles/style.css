@@ -1,10 +1,74 @@
+@keyframes color-change {
+  0% {
+    color: red;
+  }
+
+  25% {
+    color: yellow;
+  }
+
+  50% {
+    color: green;
+  }
+
+  75% {
+    color: blue;
+  }
+
+  100% {
+    color: red;
+  }
+}
+
+@keyframes rainbow_animation {
+
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 100% 0;
+  }
+}
+
 body {
   font-family: sans-serif;
+  background-color: black;
 }
 
 /* button::first-letter {
   text-decoration: underline;
 } */
+
+/* h1 {
+  width: fit-content;
+  margin: 10px;
+  font-weight: bold;
+  font-style: italic;
+  background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 6s ease-in-out infinite;
+  background-size: 400% 100%;
+} */
+
+h1 {
+  background-color: black;
+  width: fit-content;
+  font-weight: bold;
+  font-style: italic;
+  animation: color-change 3s infinite;
+  margin: 10px;
+}
+
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  gap: 5px;
+}
 
 .buttons {
   padding-bottom: 10px;
@@ -23,6 +87,7 @@ body {
 
 .field {
   display: grid;
+  margin: 10px;
   grid-template-columns: repeat(var(--num-cols), var(--cell-size));
 }
 

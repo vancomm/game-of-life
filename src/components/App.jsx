@@ -7,9 +7,10 @@ import React, {
 } from 'react';
 import produce from 'immer';
 import cn from 'classnames';
+import Button from 'react-bootstrap/Button';
 import Slider from './Slider.jsx';
 
-const CELL_SIZE = '20px';
+const CELL_SIZE = '25px';
 const NUM_ROWS = 30;
 const NUM_COLS = 30;
 const RND_SPARSITY = 0.8;
@@ -109,62 +110,35 @@ export default function App() {
     }));
   };
 
-  // useEffect(() => {
-  //   const handleKeyDown = (e) => {
-  //     switch (e.key) {
-  //       case 's': {
-  //         e.preventDefault();
-  //         toggleRunning();
-  //         break;
-  //       }
-  //       case 'c': {
-  //         e.preventDefault();
-  //         clearField();
-  //         break;
-  //       }
-  //       case 'r': {
-  //         e.preventDefault();
-  //         randomizeField();
-  //         break;
-  //       }
-  //       default: break;
-  //     }
-  //   };
-  //   document.addEventListener('keydown', handleKeyDown);
-  //   return () => {
-  //     document.removeEventListener('keydown', handleKeyDown);
-  //   };
-  // }, []);
-
   return (
     <>
       <h1>Conway&apos;s Game of Life</h1>
-      <div className="buttons">
-        <button
-          type="button"
+      <div className="btn-container">
+        <Button
+          variant={running ? 'danger' : 'success'}
           onClick={toggleRunning}
         >
           {running ? 'Stop' : 'Start'}
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="primary"
           onClick={runOneGen}
           disabled={running}
         >
           Next generation
-        </button>
-        <button
-          type="button"
-          onClick={clearField}
-        >
-          Clear
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="warning"
           onClick={randomizeField}
         >
           Random
-        </button>
+        </Button>
+        <Button
+          variant="danger"
+          onClick={clearField}
+        >
+          Clear
+        </Button>
         <Slider value={ms} setValue={setMs} />
       </div>
       <div
@@ -182,3 +156,30 @@ export default function App() {
     </>
   );
 }
+
+// useEffect(() => {
+//   const handleKeyDown = (e) => {
+//     switch (e.key) {
+//       case 's': {
+//         e.preventDefault();
+//         toggleRunning();
+//         break;
+//       }
+//       case 'c': {
+//         e.preventDefault();
+//         clearField();
+//         break;
+//       }
+//       case 'r': {
+//         e.preventDefault();
+//         randomizeField();
+//         break;
+//       }
+//       default: break;
+//     }
+//   };
+//   document.addEventListener('keydown', handleKeyDown);
+//   return () => {
+//     document.removeEventListener('keydown', handleKeyDown);
+//   };
+// }, []);
