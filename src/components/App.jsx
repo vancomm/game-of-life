@@ -85,7 +85,7 @@ export default function App() {
   };
 
   const clearField = () => {
-    setRunning(!running);
+    setRunning(false);
     setField(getEmptyField());
   };
 
