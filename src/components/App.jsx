@@ -3,12 +3,14 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 import React, {
-  useCallback, useRef, useState,
+  useCallback, useRef, useState, useEffect,
 } from 'react';
 import produce from 'immer';
 import cn from 'classnames';
 import Button from 'react-bootstrap/Button';
 import Slider from './Slider.jsx';
+import ThemeSwitcher from './ThemeSwitcher.jsx';
+import { useTheme } from '../contexts/ThemeContext.jsx';
 
 const CELL_SIZE = '25px';
 const NUM_ROWS = 30;
@@ -38,6 +40,7 @@ const getRandomField = () => Array.from(
 
 export default function App() {
   const [running, setRunning] = useState(false);
+
   const [ms, setMs] = useState(250);
 
   const runningRef = useRef();
@@ -73,7 +76,9 @@ export default function App() {
         }
       }
     }));
+
     if (once) return;
+
     setTimeout(runSimulation, msRef.current);
   }, []);
 
@@ -110,31 +115,37 @@ export default function App() {
     }));
   };
 
+  const { theme } = useTheme();
+
+  document.body.classList = theme.body.classList;
+
   return (
     <>
-      <h1>Conway&apos;s Game of Life</h1>
+      <h1>
+        Conway&apos;s Game of Life
+      </h1>
       <div className="btn-container">
         <Button
-          variant={running ? 'danger' : 'success'}
+          variant={running ? theme.buttons.stop.variant : theme.buttons.start.variant}
           onClick={toggleRunning}
         >
           {running ? 'Stop' : 'Start'}
         </Button>
         <Button
-          variant="primary"
+          variant={theme.buttons.next.variant}
           onClick={runOneGen}
           disabled={running}
         >
           Next generation
         </Button>
         <Button
-          variant="warning"
+          variant={theme.buttons.random.variant}
           onClick={randomizeField}
         >
           Random
         </Button>
         <Button
-          variant="danger"
+          variant={theme.buttons.clear.variant}
           onClick={clearField}
         >
           Clear
@@ -149,10 +160,12 @@ export default function App() {
           <div
             key={`cell-${i}-${j}`}
             className={cn('cell', (value === 1 ? 'alive' : 'dead'))}
+            style={{ '--bg-color': theme.cell['bg-color'] }}
             onClick={toggleCell(i, j)}
           />
         )))}
       </div>
+      <ThemeSwitcher />
     </>
   );
 }

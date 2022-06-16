@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTheme } from '../contexts/ThemeContext.jsx';
 
 export default function Slider({ value, setValue }) {
+  const { theme } = useTheme();
+
   return (
     <>
       <label
         htmlFor="delay"
         style={{
           fontFamily: 'monospace',
-          color: 'white',
+          color: theme.text.color,
           fontSize: '14px',
           display: 'flex',
           width: '100px',
@@ -29,7 +32,7 @@ export default function Slider({ value, setValue }) {
           value={value}
           list="steplist"
           style={{
-            color: 'white',
+            color: theme.text.color,
           }}
           onChange={(e) => setValue(e.target.value)}
         />
