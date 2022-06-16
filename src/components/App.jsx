@@ -47,7 +47,7 @@ export default function App() {
 
   const [field, setField] = useState(getEmptyField);
 
-  const runSimulation = useCallback(() => {
+  const runSimulation = useCallback((once = false) => {
     if (!runningRef.current) return;
 
     setField((f) => produce(f, (fieldCopy) => {
@@ -72,7 +72,7 @@ export default function App() {
         }
       }
     }));
-
+    if (once) return;
     setTimeout(runSimulation, msRef.current);
   }, []);
 
@@ -82,6 +82,15 @@ export default function App() {
       runningRef.current = true;
       runSimulation();
     }
+  };
+
+  const runOneGen = () => {
+    if (running) return;
+    if (!running) {
+      runningRef.current = true;
+      runSimulation(true);
+    }
+    setRunning(false);
   };
 
   const clearField = () => {
@@ -136,6 +145,13 @@ export default function App() {
           onClick={toggleRunning}
         >
           {running ? 'Stop' : 'Start'}
+        </button>
+        <button
+          type="button"
+          onClick={runOneGen}
+          disabled={running}
+        >
+          Next generation
         </button>
         <button
           type="button"
