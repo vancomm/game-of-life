@@ -1,0 +1,46 @@
+body {
+  font-family: sans-serif;
+}
+
+/* button::first-letter {
+  text-decoration: underline;
+} */
+
+.buttons {
+  padding-bottom: 10px;
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.stats {
+  margin-left: 100px;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: repeat(var(--num-cols), var(--cell-size));
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid gray;
+}
+
+.cell.alive {
+  background-color: black;
+  color: white;
+}
+
+.field:not(.running) .cell:hover {
+  background-color: rgb(141, 196, 248);
+}
+
+.field:not(.running) .cell.alive:hover {
+  background-color: rgb(129, 0, 0);
+}
