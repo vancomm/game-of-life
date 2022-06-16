@@ -8,7 +8,7 @@ const config = {
   mode: isProduction ? 'production' : 'development',
   entry: './src/index.jsx',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
     clean: true,
   },
   devServer: {

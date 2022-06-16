@@ -11,7 +11,7 @@ import cn from 'classnames';
 const CELL_SIZE = '20px';
 const NUM_ROWS = 30;
 const NUM_COLS = 30;
-const MS_TIMEOUT = 250;
+const MS_TIMEOUT = 5;
 const RND_SPARSITY = 0.8;
 
 const vectors = [
