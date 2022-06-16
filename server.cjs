@@ -1,12 +1,14 @@
-/* eslint-disable global-require */
+const fastify = require('fastify')({ logger: true });
 const path = require('path');
 
-module.exports = async function start(fastify, opts) {
-  fastify.register(require('@fastify/static'), {
-    root: path.join(__dirname, 'public'),
-    prefix: '/public/',
-  });
-  fastify.get('/', (req, reply) => reply.sendFile('/public/index.html'));
+fastify.register(require('@fastify/static'), {
+  root: path.join(__dirname, 'public'),
+  prefix: '/',
+});
+
+fastify.get('/', (req, reply) => reply.sendFile('index.html'));
+
+const start = async () => {
   try {
     await fastify.listen({ port: '3000' });
   } catch (err) {
@@ -14,3 +16,5 @@ module.exports = async function start(fastify, opts) {
     process.exit(1);
   }
 };
+
+start();

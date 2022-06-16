@@ -1,8 +1,8 @@
 install:
 	npm ci
 
-build: install
+build:
 	npx webpack --mode=production --node-env=production
 
-serve: build
+serve:
 	npx fastify start server.cjs
