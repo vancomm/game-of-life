@@ -18,7 +18,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: 'templates/gol.html',
     }),
   ],
   module: {
