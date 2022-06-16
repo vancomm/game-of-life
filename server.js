@@ -10,10 +10,10 @@ export default function run() {
 
   const app = express();
 
-  app.use(express.static(`${__dirname}/public`));
+  app.use(express.static(path.join(__dirname, 'public')));
 
   app.get('/', async (req, res) => {
-    res.send(await readFile(`${__dirname}/public/index.html`, 'utf-8'));
+    res.send(await readFile(path.join(__dirname, 'public/index.html'), 'utf-8'));
   });
 
   app.listen(3000);

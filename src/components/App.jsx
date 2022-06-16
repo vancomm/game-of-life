@@ -7,11 +7,11 @@ import React, {
 } from 'react';
 import produce from 'immer';
 import cn from 'classnames';
+import Slider from './Slider.jsx';
 
 const CELL_SIZE = '20px';
 const NUM_ROWS = 30;
 const NUM_COLS = 30;
-const MS_TIMEOUT = 5;
 const RND_SPARSITY = 0.8;
 
 const vectors = [
@@ -37,9 +37,13 @@ const getRandomField = () => Array.from(
 
 export default function App() {
   const [running, setRunning] = useState(false);
+  const [ms, setMs] = useState(250);
 
   const runningRef = useRef();
   runningRef.current = running;
+
+  const msRef = useRef();
+  msRef.current = ms;
 
   const [field, setField] = useState(getEmptyField);
 
@@ -69,7 +73,7 @@ export default function App() {
       }
     }));
 
-    setTimeout(runSimulation, MS_TIMEOUT);
+    setTimeout(runSimulation, msRef.current);
   }, []);
 
   const toggleRunning = () => {
@@ -81,6 +85,7 @@ export default function App() {
   };
 
   const clearField = () => {
+    setRunning(!running);
     setField(getEmptyField());
   };
 
@@ -144,6 +149,7 @@ export default function App() {
         >
           Random
         </button>
+        <Slider value={ms} setValue={setMs} />
       </div>
       <div
         className={cn('field', running ? 'running' : undefined)}
