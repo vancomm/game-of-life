@@ -3,7 +3,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 import React, {
-  useCallback, useRef, useState, useEffect,
+  useCallback, useRef, useState,
 } from 'react';
 import produce from 'immer';
 import cn from 'classnames';
@@ -58,13 +58,18 @@ export default function App() {
       for (let i = 0; i < NUM_ROWS; i += 1) {
         for (let j = 0; j < NUM_COLS; j += 1) {
           const neighbours = vectors
-            .map(([dx, dy]) => {
-              const x = i + dx;
-              const y = j + dy;
-              if (x >= 0 && x < NUM_ROWS && y >= 0 && y < NUM_COLS) {
-                return f[x][y];
-              }
-              return 0;
+            .map(([di, dj]) => {
+              const x = (() => {
+                if (i + di < 0) return NUM_ROWS - 1;
+                if (i + di === NUM_ROWS) return 0;
+                return i + di;
+              })();
+              const y = (() => {
+                if (j + dj < 0) return NUM_COLS - 1;
+                if (j + dj === NUM_COLS) return 0;
+                return j + dj;
+              })();
+              return f[x][y];
             })
             .reduce((sum, add) => sum + add, 0);
 
