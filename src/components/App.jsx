@@ -12,9 +12,9 @@ import Slider from './Slider.jsx';
 import ThemeSwitcher from './ThemeSwitcher.jsx';
 import { useTheme } from '../contexts/ThemeContext.jsx';
 
-const CELL_SIZE = '25px';
-const NUM_ROWS = 30;
-const NUM_COLS = 30;
+const CELL_SIZE = '30px';
+const NUM_ROWS = 25;
+const NUM_COLS = 25;
 const RND_SPARSITY = 0.8;
 
 const vectors = [
@@ -41,7 +41,7 @@ const getRandomField = () => Array.from(
 export default function App() {
   const [running, setRunning] = useState(false);
 
-  const [ms, setMs] = useState(250);
+  const [ms, setMs] = useState(100);
 
   const runningRef = useRef();
   runningRef.current = running;
