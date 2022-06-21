@@ -89,7 +89,6 @@ export function ThemeProvider({ children }) {
   const value = useMemo(() => ({ themes, theme, setTheme }), [theme]);
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }

@@ -38,11 +38,25 @@ body {
 
 h1 {
   width: fit-content;
+  margin: 10px;
+  font-weight: bold;
+  font-style: italic;
+  background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
+  /* background: linear-gradient(to right, #9C4F96, #FF6355, #FBA949, #FAE442, #8BD448, #2AA8F2, #9C4F96); */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 6s ease-in-out infinite;
+  background-size: 400% 100%;
+}
+
+/* h1 {
+  width: fit-content;
   font-weight: bold;
   font-style: italic;
   animation: color-change 3s infinite;
   margin: 10px;
-}
+} */
 
 .btn-container {
   display: flex;
@@ -87,27 +101,14 @@ h1 {
   background-color: var(--bg-color);
 }
 
-.field:not(.running) .cell:hover {
-  background-color: rgb(141, 196, 248);
-}
-
 .field:not(.running) .cell.alive:hover {
   background-color: rgb(129, 0, 0);
 }
 
+.field:not(.running) .cell:hover {
+  background-color: rgb(141, 196, 248);
+}
+
 /* button::first-letter {
   text-decoration: underline;
-} */
-
-/* h1 {
-  width: fit-content;
-  margin: 10px;
-  font-weight: bold;
-  font-style: italic;
-  background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: rainbow_animation 6s ease-in-out infinite;
-  background-size: 400% 100%;
 } */

@@ -3,7 +3,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 import React, {
-  useCallback, useRef, useState,
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 import produce from 'immer';
 import cn from 'classnames';
@@ -51,7 +51,7 @@ export default function App() {
 
   const [field, setField] = useState(getEmptyField);
 
-  const runSimulation = useCallback((once = false) => {
+  const runSimulation = useCallback((runOnce = false) => {
     if (!runningRef.current) return;
 
     setField((f) => produce(f, (fieldCopy) => {
@@ -82,7 +82,7 @@ export default function App() {
       }
     }));
 
-    if (once) return;
+    if (runOnce) return;
 
     setTimeout(runSimulation, msRef.current);
   }, []);
@@ -122,7 +122,17 @@ export default function App() {
 
   const { theme } = useTheme();
 
-  document.body.classList = theme.body.classList;
+  const prevTheme = useRef(null);
+
+  useEffect(() => {
+    document.body.classList.remove(prevTheme.current?.body.classList);
+    document.body.classList.add(theme.body.classList);
+    prevTheme.current = theme;
+  }, [theme]);
+
+  useEffect(() => () => {
+    document.body.classList.remove(theme.body.classList);
+  }, []);
 
   return (
     <>
@@ -131,7 +141,9 @@ export default function App() {
       </h1>
       <div className="btn-container">
         <Button
-          variant={running ? theme.buttons.stop.variant : theme.buttons.start.variant}
+          variant={running
+            ? theme.buttons.stop.variant
+            : theme.buttons.start.variant}
           onClick={toggleRunning}
         >
           {running ? 'Stop' : 'Start'}
@@ -164,6 +176,7 @@ export default function App() {
         {field.map((row, i) => row.map((value, j) => (
           <div
             key={`cell-${i}-${j}`}
+            id={`cell-${i}-${j}`}
             className={cn('cell', (value === 1 ? 'alive' : 'dead'))}
             style={{ '--bg-color': theme.cell['bg-color'] }}
             onClick={toggleCell(i, j)}
@@ -174,6 +187,41 @@ export default function App() {
     </>
   );
 }
+
+// const handleKeyDown = (i, j) => (e) => {
+//   switch (e.key) {
+//     case 'ArrowLeft': {
+//       e.preventDefault();
+//       const y = j - 1 < 0 ? NUM_COLS - 1 : j - 1;
+//       const el = document.querySelector(`#cell-${i}-${y}`);
+//       el.focus();
+//       break;
+//     }
+//     case 'ArrowRight': {
+//       const y = j + 1 >= NUM_COLS ? 0 : j + 1;
+//       const el = document.querySelector(`#cell-${i}-${y}`);
+//       el.focus();
+//       e.preventDefault();
+//       break;
+//     }
+//     case 'ArrowUp': {
+//       const x = i - 1 < 0 ? NUM_COLS - 1 : i - 1;
+//       const el = document.querySelector(`#cell-${x}-${j}`);
+//       el.focus();
+//       e.preventDefault();
+//       break;
+//     }
+//     case 'ArrowDown': {
+//       const x = i + 1 >= NUM_COLS ? 0 : i + 1;
+//       const el = document.querySelector(`#cell-${x}-${j}`);
+//       el.focus();
+//       e.preventDefault();
+//       break;
+//     }
+//     default:
+//       break;
+//   }
+// };
 
 // useEffect(() => {
 //   const handleKeyDown = (e) => {
