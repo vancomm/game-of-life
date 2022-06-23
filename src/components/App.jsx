@@ -1,13 +1,12 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/tabindex-no-positive */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import produce from 'immer';
-import cn from 'classnames';
 import Button from 'react-bootstrap/Button';
+import Field from './Field.jsx';
 import Slider from './Slider.jsx';
 import ThemeSwitcher from './ThemeSwitcher.jsx';
 import { useTheme } from '../contexts/ThemeContext.jsx';
@@ -141,6 +140,7 @@ export default function App() {
       </h1>
       <div className="btn-container">
         <Button
+          tabIndex="1"
           variant={running
             ? theme.buttons.stop.variant
             : theme.buttons.start.variant}
@@ -149,6 +149,7 @@ export default function App() {
           {running ? 'Stop' : 'Start'}
         </Button>
         <Button
+          tabIndex="2"
           variant={theme.buttons.next.variant}
           onClick={runOneGen}
           disabled={running}
@@ -156,33 +157,31 @@ export default function App() {
           Next generation
         </Button>
         <Button
+          tabIndex="3"
           variant={theme.buttons.random.variant}
           onClick={randomizeField}
         >
           Random
         </Button>
         <Button
+          tabIndex="4"
           variant={theme.buttons.clear.variant}
           onClick={clearField}
         >
           Clear
         </Button>
-        <Slider value={ms} setValue={setMs} />
+
+        <Slider value={ms} setValue={setMs} tabIndex="5" />
       </div>
-      <div
-        className={cn('field', running ? 'running' : undefined)}
-        style={{ '--num-rows': NUM_ROWS, '--num-cols': NUM_COLS, '--cell-size': CELL_SIZE }}
-      >
-        {field.map((row, i) => row.map((value, j) => (
-          <div
-            key={`cell-${i}-${j}`}
-            id={`cell-${i}-${j}`}
-            className={cn('cell', (value === 1 ? 'alive' : 'dead'))}
-            style={{ '--bg-color': theme.cell['bg-color'] }}
-            onClick={toggleCell(i, j)}
-          />
-        )))}
-      </div>
+      <Field
+        field={field}
+        running={running}
+        toggleCell={toggleCell}
+        numRows={NUM_ROWS}
+        numCols={NUM_COLS}
+        cellSize={CELL_SIZE}
+        tabIndex="6"
+      />
       <ThemeSwitcher />
     </>
   );

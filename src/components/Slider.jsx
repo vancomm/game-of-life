@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTheme } from '../contexts/ThemeContext.jsx';
 
-export default function Slider({ value, setValue }) {
+export default function Slider({ value, setValue, tabIndex }) {
   const { theme } = useTheme();
 
   return (
@@ -31,6 +31,7 @@ export default function Slider({ value, setValue }) {
           step="25"
           value={value}
           list="steplist"
+          tabIndex={tabIndex}
           style={{
             color: theme.text.color,
           }}
@@ -57,4 +58,5 @@ export default function Slider({ value, setValue }) {
 Slider.propTypes = {
   value: PropTypes.number.isRequired,
   setValue: PropTypes.func.isRequired,
+  tabIndex: PropTypes.string.isRequired,
 };

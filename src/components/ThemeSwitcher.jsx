@@ -17,6 +17,7 @@ export default function ThemeSwitcher() {
           variant={theme.switcher[t.name].variant}
           checked={t.name === theme.name}
           onChange={() => setTheme(t)}
+          tabIndex="-1"
         >
           {t.name}
         </ToggleButton>
